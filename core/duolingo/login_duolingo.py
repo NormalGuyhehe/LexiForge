@@ -1,7 +1,8 @@
 """Login Duolingo and scraping data"""
 import time
+from playwright.sync_api import Page
 from utils.user.get_user_data_duolingo import take_user_data_duolingo
-def login_and_scraping_duolingo(page):
+def login_and_scraping_duolingo(page:Page):
             """this module used next function :
             take_user_data_duolingo, he give in this function user 
             email and password for duolingo scraping"""
@@ -24,24 +25,25 @@ def login_and_scraping_duolingo(page):
             ------------------------------------------------------------------------------ 
             """
             try:
-                time.sleep(5)
-                page.wait_for_selector('[data-test="practice-hub-nav"]', timeout=5000)
-                page.hover('[data-test="practice-hub-nav"]', force=True)
-                time.sleep(5)
-                page.click('[data-test="practice-hub-nav"]', force=True)
-                time.sleep(5)
-                page.wait_for_selector('[data-test="practice-hub-collection-button"]', timeout=5000)
-                time.sleep(5)
-                page.click('[data-test="practice-hub-collection-button"]', force=True)
-                time.sleep(5)
+                train_button = page.locator('[data-test="practice-hub-nav"]')
+                train_button.click(force=True)
+                action_to_words = page.locator('[data-test="practice-hub-collection-button"]', has_text="Повторяйте слова из курса английского в любое время")
+                action_to_words.scroll_into_view_if_needed()
+                action_to_words.click()
+                if page.locator('[data-test="plus-no-thanks"]').count() > 0:
+                    button = page.locator('[data-test="plus-no-thanks"]')
+                    button.first.click(force=True)
+                more_words_click = page.locator('li[role="button"]', has_text="Загрузить больше")
                 while True:
-                    page.wait_for_selector('[data-test="plus-no-thanks"]', timeout=5000)
-                    page.click('[data-test="plus-no-thanks"]', force=True)
-                    page.wait_for_selector('[role="button"]', timeout=5000)
-                    page.click('[role="button"]', force=True)
+                    if more_words_click.count() == 0:
+                        words_list = page.locator("li").inner_text()
+                        print(words_list)
+                        break
+                    else:
+                        more_words_click.scroll_into_view_if_needed()
+                        more_words_click.click(force=True)
             finally:
-                pass
-                # page.wait_for_selector('[data-test="more-nav"]', timeout=5000)
-                # page.hover('[data-test="more-nav"]', force=True)
-                # log_out = page.locator('[data-test="logout-button"]')
-                # log_out.click(force=True)
+                get_out = page.locator('[data-test="more-nav"]')
+                get_out.hover('[data-test="more-nav"]', force=True)
+                log_out = page.locator('[data-test="logout-button"]')
+                log_out.click(force=True)
