@@ -1,5 +1,4 @@
 """get user words"""
-from utils.user.get_user_data_duolingo import take_user_data_duolingo
 from utils.tools.get_playwright_object import take_playwright_object
 from core.duolingo.login_duolingo import login_and_scraping_duolingo
 def get_data():
