@@ -1,13 +1,19 @@
-from typing import Generator
-from playwright.sync_api import sync_playwright, Page
-from contextlib import contextmanager
+from typing import AsyncGenerator
+from contextlib import asynccontextmanager
+from playwright.async_api import async_playwright, Page
 
-@contextmanager
-def take_playwright_object() -> Generator[Page, None, None]:
-    with sync_playwright() as pw:
-        browser = pw.chromium.launch(headless=False)
-        page = browser.new_page()
+@asynccontextmanager
+#used special context manager from standart python lib for correct create and live cycle object of Page class
+async def take_playwright_object() -> AsyncGenerator[Page]:
+    print("Getting playwright object...")
+    """This function take the object of playwright class Page from sync_api"""
+    async with async_playwright() as pw:
+        print("configuring of setting object")
+        browser = await pw.chromium.launch(headless=False)
+        print("create Page object")
+        page = await browser.new_page()
         try:
+            print("takes page object")
             yield page
         finally:
-            browser.close()
+            await browser.close()

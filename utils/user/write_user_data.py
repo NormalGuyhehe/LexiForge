@@ -1,4 +1,4 @@
-def write():
+async def write():
     user_email: str = input("Введите свою почту: ")
     user_password: str = input("Введите свой пароль: ")
     with open (".env", "a+") as file:
