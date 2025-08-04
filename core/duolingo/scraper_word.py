@@ -2,7 +2,7 @@ import asyncio
 from utils.data.tags import *
 from playwright.async_api import Page
 
-async def scraper(page: Page):
+async def writer(page: Page):
      while True:
         print("Parsing Mode active...")
         print("Waiting for initialise button for loading more/new words...")
@@ -17,7 +17,7 @@ async def scraper(page: Page):
             print("All iterations succesfully complete...")
             default_words = await page.locator(DEFAULT_WORDS_TAG).all_inner_texts()
             translate_words = await page.locator(TRANSLATED_WORDS_TAG).all_inner_texts()
-            print("Getting all words and zip to smart dictionary") 
+            print("Getting all words and zip to smart dictionary...") 
             vocab_dictionary = dict(zip(default_words, translate_words))
             with open("words.md", "a+", encoding="utf-8") as word_container:
                 word_container.write(f"{vocab_dictionary}\n")

@@ -8,12 +8,12 @@ async def take_playwright_object() -> AsyncGenerator[Page]:
     print("Getting playwright object...")
     """This function take the object of playwright class Page from sync_api"""
     async with async_playwright() as pw:
-        print("configuring of setting object")
+        print("configuring of setting object...")
         browser = await pw.chromium.launch(headless=False)
-        print("create Page object")
+        print("create Page object...")
         page = await browser.new_page()
         try:
-            print("takes page object")
+            print("takes page object...")
             yield page
         finally:
             await browser.close()
