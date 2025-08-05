@@ -1,7 +1,9 @@
 import asyncio
 from utils.data.tags import *
 from playwright.async_api import Page
+from functools import lru_cache
 
+@lru_cache
 async def writer(page: Page):
      while True:
         print("Parsing Mode active...")

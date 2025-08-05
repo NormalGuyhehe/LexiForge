@@ -1,9 +1,11 @@
 """Login Duolingo and scraping data"""
-import time
+from functools import lru_cache
 from playwright.sync_api import Page
 from utils.user.get_user_data_duolingo import take_user_data_duolingo
 from core.duolingo.go_to_profile import to_profile
 from core.duolingo.scraping_duolingo import scrape_data
+
+@lru_cache
 async def login_and_scraping_duolingo(page:Page):
             """this module used next function :
             take_user_data_duolingo, he give in this function user 

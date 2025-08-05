@@ -1,6 +1,9 @@
 """get user words"""
 from utils.tools.get_playwright_object import take_playwright_object
 from core.duolingo.login_duolingo import login_and_scraping_duolingo
+from functools import lru_cache
+
+@lru_cache
 async def get_data():
         print("Launch duolingo core...")
         """This module get object of class Playwright from playwright lib,

@@ -1,6 +1,9 @@
 """Auth script"""
 from utils.data.tags import *
 from playwright.sync_api import Page
+from functools import lru_cache
+
+@lru_cache
 async def to_profile(page: Page, take_user_data_duolingo) -> None:
     """Auth into user profile"""
     info = await take_user_data_duolingo()

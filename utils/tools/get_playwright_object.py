@@ -1,7 +1,9 @@
 from typing import AsyncGenerator
 from contextlib import asynccontextmanager
 from playwright.async_api import async_playwright, Page
+from functools import lru_cache
 
+@lru_cache
 @asynccontextmanager
 #used special context manager from standart python lib for correct create and live cycle object of Page class
 async def take_playwright_object() -> AsyncGenerator[Page]:

@@ -1,5 +1,8 @@
+from functools import lru_cache
 from utils.data.tags import *
 from playwright.async_api import Page
+
+@lru_cache
 async def practice_hub(page: Page) -> None:
     print("Login into practice hub...")
     train_button = page.locator(PRACTICE_HUB_TAG)
