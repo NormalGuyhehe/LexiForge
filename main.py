@@ -16,9 +16,9 @@ async def main() -> None:
     """
     print("Starts of LexiForge...")
     if have_data:
-        # print("Start scraping duolingo...")
-        # await get_data()
-        # print("Finish scraping duolingo...") 
+        print("Start scraping duolingo...")
+        await get_data()
+        print("Finish scraping duolingo...") 
         await manager_orchestrator()
     else:
         await write()

@@ -17,4 +17,3 @@ async def structure_creator():
                 os.chdir("english")
                 current_dir = os.getcwd()
                 print(current_dir)
-                

@@ -1,11 +1,13 @@
+import os
+import json
 import asyncio
-from utils.data.tags import *
 from playwright.async_api import Page
-from functools import lru_cache
+from utils.data.tags import *
+from core.duolingo.load_old_words import takeold_words
 
-@lru_cache
 async def writer(page: Page):
-     while True:
+    known_words_dictionary = await takeold_words()
+    while True:
         print("Parsing Mode active...")
         print("Waiting for initialise button for loading more/new words...")
         await asyncio.sleep(3)
@@ -21,7 +23,14 @@ async def writer(page: Page):
             translate_words = await page.locator(TRANSLATED_WORDS_TAG).all_inner_texts()
             print("Getting all words and zip to smart dictionary...") 
             vocab_dictionary = dict(zip(default_words, translate_words))
-            with open("words.md", "a+", encoding="utf-8") as word_container:
-                word_container.write(f"{vocab_dictionary}\n")
-                word_container.close()
+            with open("words.json", "a+", encoding="utf-8") as word_container:
+                for word, translation in vocab_dictionary.items():
+                    if word not in known_words_dictionary:
+                        print(f"WRITE {word} - {translation}")
+                        known_words_dictionary[word] = translation
+                        print(known_words_dictionary)
+                        word_container.write(f"{word} - {translation}\n")
+                    else:
+                        print(f"[PASS] - {word}, {translation}")
+                        continue
             break
