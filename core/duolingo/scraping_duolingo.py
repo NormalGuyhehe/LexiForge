@@ -6,6 +6,7 @@ from core.duolingo.practice_hub import practice_hub
 from core.duolingo.scraper_word import writer
 from core.duolingo.logout import logout
 
+
 @lru_cache
 async def scrape_data(page: Page, take_user_data_duolingo):
     """Scrape and serialisation data"""
@@ -16,7 +17,7 @@ async def scrape_data(page: Page, take_user_data_duolingo):
             button: object = page.locator(NO_THANKS_TAG)
             await button.first.click(force=True)
             print("Problem has been destroyed...")
-        await writer(page) 
+        await writer(page)
     except Exception as e:
         print(f"Finds error {e}, reload script...")
         await to_profile(page, take_user_data_duolingo)
