@@ -1,6 +1,7 @@
 import asyncio
 from playwright.async_api import Page
 from utils.data.tags import *
+import json
 from core.duolingo.load_old_words import takeold_words
 
 
@@ -25,12 +26,11 @@ async def writer(page: Page):
             print("Getting all words and zip to smart dictionary...")
             vocab_dictionary = dict(zip(default_words, translate_words))
             with open("words.json", "a+", encoding="utf-8") as word_container:
-                for word, translation in vocab_dictionary.items():
+                    json.dump(vocab_dictionary, word_container, ensure_ascii=False, indent=4)
                     # if word not in known_words_dictionary:
                     # print(f"WRITE {word} - {translation}")
                     # known_words_dictionary[word] = translation
                     # print(known_words_dictionary)
-                    word_container.write(f"{word} - {translation}\n")
                     # else:
                     # print(f"[PASS] - {word}, {translation}")
                     # continue

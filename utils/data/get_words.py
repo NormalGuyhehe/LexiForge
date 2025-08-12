@@ -1,7 +1,7 @@
 import os
-async def get_dictionary_from_file():
-    print(os.listdir())
+import json
+async def get_dictionary_from_file(current_dir):
+    os.chdir(current_dir) 
     with open("words.json", "r", encoding="utf-8") as source:
-        words = source.read()
-        print(words)
-        return words
+        words_title = json.load(source)
+        return words_title
