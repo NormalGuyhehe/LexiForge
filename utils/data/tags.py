@@ -1,7 +1,8 @@
 DUOLINGO_URL = "https://www.duolingo.com/"
 HAVE_ACCOUNT_TAG = '[data-test="have-account"]'
-USE_ANOTHER_ACCOUNT_TEXT = 'Использовать другой аккаунт'
-USE_ANOTHER_ACCOUNT_TAG = '[span]'
+USE_ANOTHER_ACCOUNT_TEXT_RUS = "Использовать другой аккаунт"
+USE_ANOTHER_ACCOUNT_TEXT_ENG = "Use another account"
+USE_ANOTHER_ACCOUNT_TAG = 'span'
 PASSWORD_INPUT_TAG = '[data-test="password-input"]'
 EMAIL_INPUT_TAG = '[data-test="email-input"]'
 AUTH_BUTTON_TAG = '[data-test="register-button"]'
