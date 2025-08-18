@@ -1,6 +1,6 @@
 """get user words"""
 
-from utils.tools.get_playwright_object import take_playwright_object
+from utils.tools.get_playwright_object import take_for_duolingo_playwright_object
 from core.duolingo.login_duolingo import login_and_scraping_duolingo
 from functools import lru_cache
 
@@ -15,7 +15,7 @@ async def get_data():
         LEARNED WORDS, NO MORE, NO LESS
         ----------------------------------------------------------------
         """
-    async with take_playwright_object() as page:
+    async with take_for_duolingo_playwright_object() as page:
         print(
             "Page object succefully initialised, start authorise of duolingo account..."
         )

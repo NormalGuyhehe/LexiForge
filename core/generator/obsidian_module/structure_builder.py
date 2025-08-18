@@ -8,37 +8,50 @@ from core.generator.obsidian_module.structure.language_structure import *
 
 
 @lru_cache
-async def structure_creator():
-    vault_list: Path = find_obsidian_vaults()
-    for vault in vault_list:
-        if (
-            vault.is_dir
-            and vault.name == "obsidian"
-            and vault.parent.name == "Documents"
-        ):
-            path_to_main = vault / "Главная"
-            os.chdir(str(path_to_main))
-            path_to_english_folder = path_to_main / "english"
-            os.chdir("english")
-            if (
-                Path("vocabulary").is_dir()
-                and Path("grammarly").is_dir()
-                and Path("anki_cards").is_dir()
-            ):
-                print(
-                    "Container for words notes/grammarly notes/anki cards is exists, good to work..."
-                )
-                return path_to_english_folder
-            else:
-                vocabulary_folder: Path = Path("vocabulary")
-                vocabulary_folder.mkdir()
-                print("Make a vocabulary directory")
-                grammarly_folder: Path = Path("grammarly")
-                grammarly_folder.mkdir()
-                print("Make a grammarly directory")
-                anki_folder: Path = Path("anki_cards")
-                anki_folder.mkdir()
-                print("Make an anki_folder directory")
-                current_directory = os.getcwd()
-                os.listdir(current_directory)
-                return path_to_english_folder
+async def structure_creator(current_directory):
+    if os.path.exists("english"):
+        print("english folder already exists")
+        os.chdir("english")
+        if os.path.exists("grammarly") and os.path.exists("vocabulary"):
+            print("grammarly and vocabulary folder already exists")
+    else:
+        os.mkdir("english")
+        os.chdir("english")
+        os.mkdir("grammarly")
+        os.mkdir("vocabulary")
+
+    directory = os.getcwd()
+    return directory
+    # vault_list: Path = find_obsidian_vaults()
+    # for vault in vault_list:
+    #     if (
+    #         vault.is_dir
+    #         and vault.name == "obsidian"
+    #         and vault.parent.name == "Documents"
+    #     ):
+    # path_to_main = vault / "Главная"
+    # os.chdir(str(path_to_main))
+    # path_to_english_folder = path_to_main / "english"
+    # os.chdir("english")
+    # if (
+    #     Path("vocabulary").is_dir()
+    #     and Path("grammarly").is_dir()
+    #     and Path("anki_cards").is_dir()
+    # ):
+    #     print(
+    #         "Container for words notes/grammarly notes/anki cards is exists, good to work..."
+    #     )
+    #     return path_to_english_folder
+    # else:
+    #     vocabulary_folder: Path = Path("vocabulary")
+    #     vocabulary_folder.mkdir()
+    #     print("Make a vocabulary directory")
+    #     grammarly_folder: Path = Path("grammarly")
+    #     grammarly_folder.mkdir()
+    #     print("Make a grammarly directory")
+    #     anki_folder: Path = Path("anki_cards")
+    #     anki_folder.mkdir()
+    #     print("Make an anki_folder directory")
+    #     current_directory = os.getcwd()
+    #     os.listdir(current_directory)
+    # return path_to_english_folder

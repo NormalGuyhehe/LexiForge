@@ -1,4 +1,5 @@
-import json
+import asyncio
+import random
 from functools import lru_cache
 from utils.data.tags import *
 from playwright.async_api import Page
@@ -12,12 +13,14 @@ from core.duolingo.logout import logout
 async def scrape_data(page: Page, take_user_data_duolingo):
     """Scrape and serialisation data"""
     try:
+        await asyncio.sleep(random.uniform(0.5, 1.5))
         await practice_hub(page)
         if await page.locator(NO_THANKS_TAG).count() > 0:
             print("Activate fallbacks...")
             button: object = page.locator(NO_THANKS_TAG)
             await button.first.click(force=True)
             print("Problem has been destroyed...")
+        await asyncio.sleep(random.uniform(0.5, 1.5))
         await scraper(page)
     except Exception as e:
         print(f"Finds error {e}, reload script...")

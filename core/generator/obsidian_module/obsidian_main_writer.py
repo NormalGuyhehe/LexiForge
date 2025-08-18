@@ -2,8 +2,6 @@ import os
 
 
 async def main_writer(vault_path):
-    os.chdir(vault_path)
-    print(os.listdir(vault_path))
     with open("english.md", "w", encoding="utf-8") as main_file:
         main_file.write("""# Английский язык — Основной Хаб \n
 Добро пожаловать! Это твой главный файл для управления всей информацией по английскому языку: словарём, грамматикой и карточками.
