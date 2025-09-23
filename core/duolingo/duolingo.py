@@ -1,6 +1,6 @@
 """get user words"""
 
-from utils.tools.get_playwright_object import take_for_duolingo_playwright_object
+from utils.tools.duolingo_playwright_object import take_for_duolingo_playwright_object
 from core.duolingo.login_duolingo import login_and_scraping_duolingo
 from functools import lru_cache
 

@@ -1,9 +1,9 @@
-import os
+from pathlib import Path
 
-
-async def main_writer(vault_path):
-    with open("english.md", "w", encoding="utf-8") as main_file:
-        main_file.write("""# Английский язык — Основной Хаб \n
+async def main_writer(ROOT_DIRECTORY):
+    english_main_file_path: Path = ROOT_DIRECTORY / "english" / "english.md"
+    english_main_file_path.write_text(
+        """# Английский язык — Основной Хаб \n
 Добро пожаловать! Это твой главный файл для управления всей информацией по английскому языку: словарём, грамматикой и карточками.
 
 ---
@@ -57,4 +57,6 @@ async def main_writer(vault_path):
 
 ---
 
-""")
+""",
+        encoding="utf-8",
+    )

@@ -1,20 +1,20 @@
-import os
-from functools import lru_cache
 from core.generator.obsidian_module.structure_builder import structure_creator
 from core.generator.obsidian_module.obsidian_main_writer import main_writer
 from core.generator.obsidian_module.notes_writer import words_notes_writer
 from core.generator.obsidian_module.grammarly_writer import grammarly_writer
+from utils.paths import get_root_path
 
-@lru_cache
+
 async def obsidian_manager():
     print("Starts create files and directory...")
-    current_dir = os.getcwd()
+    ROOT_DIRECTORY: str = await get_root_path()
     print("Get current directory...")
-    vault_path = await structure_creator(current_dir)
+    await structure_creator(ROOT_DIRECTORY)
     print("Create folder and files structure...")
-    await main_writer(vault_path)
+    await main_writer(ROOT_DIRECTORY)
     print("Create main language file...")
-    await words_notes_writer(current_dir, vault_path)
+    # await words_notes_writer(ROOT_DIRECTORY)
     print("Writed all vocabulary notes...")
-    await grammarly_writer(current_dir, vault_path)
+    await grammarly_writer(ROOT_DIRECTORY)
     print("Writed all grammarly notes...")
+    print("ALL NOTES WROTES...")

@@ -1,18 +1,17 @@
-import os
-from utils.data.get_words import get_dictionary_from_file
-from core.generator.LLM_module.ai_note_generator import note_generator
-from core.generator.LLM_module.ai_cards_generator import cards_generator
-from utils.tools.get_playwright_object import take_for_AI_playwright_object
-from playwright.async_api import Page
+from pathlib import Path
+from utils.get_words import get_dictionary_from_file
+from utils.take_vocabulay_prompt import take_vocabulary_prompt
+from core.generator.LLM_module.LLM_manager import connect_llm
 
 
-async def words_notes_writer(current_dir, vault_path):
-    words_dict_or_set: dict = await get_dictionary_from_file(current_dir)
+async def words_notes_writer(ROOT_DIRECTORY: Path):
+    words_dict_or_set: dict = await get_dictionary_from_file()
     print("notes module works...")
-    os.chdir(vault_path)
-    print(os.listdir())
-    os.chdir("vocabulary")
-
-    async with take_for_AI_playwright_object() as openAI_page:
-        for default_word, translate in words_dict_or_set.items():
-            vocabulary_note_text = await note_generator(openAI_page, default_word, translate)
+    vocabulary_note_prompt: str = await take_vocabulary_prompt()
+    for default_word in words_dict_or_set.keys():
+        target_to_write: Path = Path("english") / "vocabulary" / f"{default_word}.md"
+        vocabulary_note_text: str = await connect_llm(
+            default_word, vocabulary_note_prompt, ROOT_DIRECTORY
+        )
+        target_to_write.write_text(vocabulary_note_text, encoding="utf-8")
+    print("process finished...")

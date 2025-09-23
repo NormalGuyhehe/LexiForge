@@ -48,6 +48,7 @@ async def to_profile(page: Page, take_user_data_duolingo) -> None:
         await password_input.fill(info[1])
         await auth_button.click()
         await asyncio.sleep(random.uniform(0.5, 1.5))
+
     while (
         await page.locator(
             USE_ANOTHER_ACCOUNT_TAG, has_text=USE_ANOTHER_ACCOUNT_TEXT_ENG

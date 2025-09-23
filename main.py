@@ -7,12 +7,7 @@ from core.generator.manager import manager_orchestrator
 
 
 async def main() -> None:
-    """Main script (will be updated more that once)
-    v.0.1, Main feature in develop :
-    - get words from Duolingo Dictionary ✔
-    - split words and step-by-step query on OpenAI web-site with prompt
-    - async write into cards and vault beetwen OpenAI requests
-    """
+    """Main script (will be updated more that once)"""
     print("Starts of LexiForge...")
     if have_data():
         print("Start scraping duolingo...")
@@ -20,6 +15,7 @@ async def main() -> None:
 
         print("Finish scraping duolingo...")
         await manager_orchestrator()
+        print("Process finished...")
     else:
         await write()
         # await get_data()
