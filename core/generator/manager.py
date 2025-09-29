@@ -6,9 +6,9 @@ from functools import lru_cache
 @lru_cache
 async def manager_orchestrator():
     print("obsidian (.md ) manager started...")
-    await obsidian_manager()
-    print("obsidian (.md ) manager finished...")
-    print("Anki manager started...")
+    # await obsidian_manager()
+    # print("obsidian (.md ) manager finished...")
+    # print("Anki manager started...")
     await anki_manager()
-    print("Anki manager finished...")
+    print("Anki process finished...")
     print("LexiForge finished completely")
