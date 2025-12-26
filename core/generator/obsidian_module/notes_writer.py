@@ -1,17 +1,20 @@
 from pathlib import Path
-from utils.get_words import get_dictionary_from_file
+from core.db.read_batch import read_batch_db
 from utils.take_vocabulay_prompt import take_vocabulary_prompt
 from core.generator.LLM_module.LLM_manager import connect_llm
 
 
 async def words_notes_writer(ROOT_DIRECTORY: Path):
-    words_dict_or_set: dict = await get_dictionary_from_file()
+    expression: list = await read_batch_db()
+    print(f" substracted from database{expression}")
     print("notes module works...")
-    vocabulary_note_prompt: str = await take_vocabulary_prompt()
-    for default_word in words_dict_or_set.keys():
-        target_to_write: Path = Path("english") / "vocabulary" / f"{default_word}.md"
+    vocabulary_note_prompt: str = take_vocabulary_prompt()
+    raw_expression: tuple = expression[0]
+    expression_to_words: str = raw_expression[1]
+    for word in expression_to_words.split(' '):
+        target_to_write: Path = Path("english") / "vocabulary" / f"{word}.md"
         vocabulary_note_text: str = await connect_llm(
-            default_word, vocabulary_note_prompt, ROOT_DIRECTORY
+            word, vocabulary_note_prompt, ROOT_DIRECTORY
         )
         target_to_write.write_text(vocabulary_note_text, encoding="utf-8")
-    print("process finished...")
+    print("vocabulary note has been writed...")

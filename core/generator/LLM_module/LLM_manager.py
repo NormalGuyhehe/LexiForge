@@ -18,20 +18,14 @@ from core.generator.LLM_module.engine.to_chatgpt import walk_to_chatgpt
 async def connect_llm(default_word: str, vocabulary_note_prompt: str, ROOT_DIRECTORY: Path):
     vocabulary_prompt = vocabulary_note_prompt.format(word=default_word)
     await run_powershell_module(ROOT_DIRECTORY)
-    await asyncio.sleep(2)
     async with CDP_connect_module(get_debugging_cdp_url) as connection:
         target_id: str = await create_target(connection)
         print(target_id)
         session_id: str = await attach_to_target(connection, target_id)
-        await asyncio.sleep(2)
         await walk_to_chatgpt(connection, session_id)
-        await asyncio.sleep(2)
         await click_to_text_form(connection, session_id)
-        await asyncio.sleep(2)
         await typing_to_form(connection, session_id, vocabulary_prompt)
-        await asyncio.sleep(2)
         await enter_responce_to_server(connection, session_id)
-        await asyncio.sleep(2)
         answer_from_server: str = await get_answer(connection, session_id)
         await reload_page(connection, session_id)
         return answer_from_server

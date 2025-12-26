@@ -1,4 +1,4 @@
-async def take_vocabulary_prompt():
+def take_vocabulary_prompt():
     vocabulary_prompt: str = """Ты – генератор учебных заметок по слову. 
 На вход даётся слово. 
 Объяснение должно быть очень простым, без филологии и терминов.  

@@ -12,15 +12,20 @@ async def click_to_text_form(connection, session_id: str):
                 "sessionId": session_id,
                 "params": {
                     "expression": """
-                const observer = new MutationObserver(() => {
-                  const btn = document.querySelector('a.text-token-text-secondary.underline');
-                  if (btn) {
-                    btn.click();
-                    observer.disconnect();
-                    console.log("succesfully'");
-                  }
-                });
-                observer.observe(document.body, { childList: true, subtree: true });
+                    const observer = new MutationObserver(() => {
+    const interval = setInterval(() => {
+        const btn = document.querySelector('a.text-token-text-secondary.underline');
+        if (btn) {
+            btn.click();
+            clearInterval(interval);     // останавливаем проверку
+            observer.disconnect();      // перестаём слушать DOM
+            console.log("Successfully clicked");
+        }
+    }, 100); // проверяем каждые 100 мс
+});
+
+observer.observe(document.body, { childList: true, subtree: true });
+
                 """
                 },
             }

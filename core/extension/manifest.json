@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "name": "Dynamic Scraper & YouTube Link Tracker (Final)",
+    "version": "1.0",
+    "description": "Захватывает ссылки YouTube и сканирует DOM на наличие латинского текста.",
+    
+    "background": {
+        "service_worker": "background.js"
+    },
+    
+    "permissions": [
+        "tabs"
+    ],
+    "host_permissions": [
+        "https://ВАШ_ДОМЕН_API/*"
+    ],
+    
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content_script.js"],
+            "run_at": "document_idle"
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    }
+}

@@ -2,7 +2,7 @@ from functools import lru_cache
 from pathlib import Path
 
 @lru_cache
-async def structure_creator(ROOT_DIRECTORY):
+def structure_creator(ROOT_DIRECTORY):
     print(ROOT_DIRECTORY)
     middle_path: Path = Path(ROOT_DIRECTORY)
     english_path: Path = middle_path / "english"
